@@ -8,23 +8,31 @@ import LabReport from './pages/LabReport'
 import Admin from './pages/Admin'
 import Appointment from './pages/Appointment'
 import Unauthorized from './pages/Unauthorized'
+import PatientLogin from './pages/PatientLogin'
+import PatientDashboard from './pages/PatientDashboard'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function Layout() {
   const location = useLocation()
-  const hideNavbar = location.pathname === '/login' || location.pathname === '/unauthorized'
+  const hideNavbar = 
+    location.pathname === '/login' || 
+    location.pathname === '/unauthorized' ||
+    location.pathname === '/patient/login' ||
+    location.pathname.startsWith('/patient')
 
   return (
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
-
-        {/* Public */}
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-
-        {/* Reception */}
+        <Route path="/patient/login" element={<PatientLogin />} />
+        <Route path="/patient" element={
+          <ProtectedRoute allowedRoles={['patient']}>
+            <PatientDashboard />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={
           <ProtectedRoute allowedRoles={['reception', 'admin']}>
             <Reception />
@@ -35,8 +43,6 @@ function Layout() {
             <Appointment />
           </ProtectedRoute>
         } />
-
-        {/* Doctor */}
         <Route path="/doctor" element={
           <ProtectedRoute allowedRoles={['doctor', 'admin']}>
             <Doctor />
@@ -47,8 +53,6 @@ function Layout() {
             <Prescription />
           </ProtectedRoute>
         } />
-
-        {/* Shared */}
         <Route path="/history" element={
           <ProtectedRoute allowedRoles={['doctor', 'reception', 'admin']}>
             <History />
@@ -59,14 +63,11 @@ function Layout() {
             <LabReport />
           </ProtectedRoute>
         } />
-
-        {/* Admin Only */}
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <Admin />
           </ProtectedRoute>
         } />
-
       </Routes>
     </>
   )
