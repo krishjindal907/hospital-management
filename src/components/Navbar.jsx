@@ -49,12 +49,13 @@ function Navbar() {
   return (
     <div style={{
       background: '#2c7be5',
-      padding: '0 20px',
+      padding: '10px 20px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      gap: '10px'
     }}>
 
       <h2 style={{ color: 'white', padding: '16px 0', fontSize: '18px' }}>

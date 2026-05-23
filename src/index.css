@@ -131,3 +131,80 @@ body {
   margin: 40px auto;
   padding: 0 20px;
 }
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar, [style*="background: #2c7be5"] {
+    flex-direction: column !important;
+    padding: 10px !important;
+    gap: 8px !important;
+  }
+
+  /* Page */
+  .page {
+    padding: 0 10px !important;
+    margin: 15px auto !important;
+  }
+
+  /* Card */
+  .card {
+    padding: 15px !important;
+    border-radius: 8px !important;
+  }
+
+  /* Table scroll */
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Grid — 1 column on mobile */
+  [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Buttons full width */
+  .btn-primary {
+    font-size: 15px !important;
+  }
+
+  /* Input full width */
+  .input {
+    font-size: 16px !important;
+  }
+
+  /* Token number smaller */
+  .token-number {
+    font-size: 60px !important;
+  }
+
+  /* Flex wrap */
+  [style*="display: flex"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* Hide long text on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Admin stats 1 column */
+  [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Smaller headings */
+  h1 { font-size: 22px !important; }
+  h2 { font-size: 18px !important; }
+
+  /* Token box */
+  .token-box {
+    padding: 25px 15px !important;
+  }
+}
