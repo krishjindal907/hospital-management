@@ -3,6 +3,7 @@ import Reception from './pages/Reception'
 import Doctor from './pages/Doctor'
 import Login from './pages/Login'
 import Prescription from './pages/Prescription'
+import History from './pages/History'
 import Navbar from './components/Navbar'
 
 function Layout() {
@@ -17,6 +18,7 @@ function Layout() {
         <Route path="/" element={<Reception />} />
         <Route path="/doctor" element={<Doctor />} />
         <Route path="/prescription" element={<Prescription />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </>
   )
