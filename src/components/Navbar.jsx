@@ -4,11 +4,12 @@ function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
 
- const links = [
+const links = [
   { path: '/', label: '👩‍💼 Reception' },
   { path: '/doctor', label: '👨‍⚕️ Doctor' },
   { path: '/prescription', label: '💊 Prescription' },
   { path: '/history', label: '📋 History' },
+  { path: '/lab', label: '🔬 Lab' },
 ]
   return (
     <div style={{
