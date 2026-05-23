@@ -10,6 +10,7 @@ const links = [
   { path: '/prescription', label: '💊 Prescription' },
   { path: '/history', label: '📋 History' },
   { path: '/lab', label: '🔬 Lab' },
+  { path: '/admin', label: '📊 Admin' },
 ]
   return (
     <div style={{
