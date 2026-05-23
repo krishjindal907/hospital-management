@@ -3,23 +3,47 @@ import { useNavigate, useLocation } from 'react-router-dom'
 function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
-
+  const role = localStorage.getItem('role')
   const username = localStorage.getItem('username')
   const hospital = localStorage.getItem('hospital')
 
-  const links = [
-    { path: '/', label: '👩‍💼 Reception' },
-    { path: '/doctor', label: '👨‍⚕️ Doctor' },
+  // Har role ke alag links
+  const adminLinks = [
+    { path: '/admin', label: '📊 Dashboard' },
+    { path: '/admin/staff', label: '👥 Staff' },
+    { path: '/admin/hospitals', label: '🏥 Hospitals' },
+  ]
+
+  const doctorLinks = [
+    { path: '/doctor', label: '👨‍⚕️ Patients' },
     { path: '/prescription', label: '💊 Prescription' },
     { path: '/history', label: '📋 History' },
-    { path: '/lab', label: '🔬 Lab' },
-    { path: '/admin', label: '📊 Admin' },
-    { path: '/appointment', label: '📅 Appointment' },
+    { path: '/lab', label: '🔬 Lab Reports' },
   ]
+
+  const receptionLinks = [
+    { path: '/', label: '👩‍💼 Registration' },
+    { path: '/appointment', label: '📅 Appointment' },
+    { path: '/history', label: '📋 History' },
+  ]
+
+  const getLinks = () => {
+    if (role === 'admin') return adminLinks
+    if (role === 'doctor') return doctorLinks
+    if (role === 'reception') return receptionLinks
+    return []
+  }
 
   const handleLogout = () => {
     localStorage.clear()
     navigate('/login')
+  }
+
+  const roleLabel = () => {
+    if (role === 'admin') return '👨‍💼 Admin'
+    if (role === 'doctor') return '👨‍⚕️ Doctor'
+    if (role === 'reception') return '👩‍💼 Reception'
+    return ''
   }
 
   return (
@@ -37,8 +61,8 @@ function Navbar() {
         🏥 {hospital || 'Hospital Management'}
       </h2>
 
-      <div style={{ display: 'flex', gap: '3px', flexWrap: 'wrap' }}>
-        {links.map(link => (
+      <div style={{ display: 'flex', gap: '3px', flexWrap: 'wrap', alignItems: 'center' }}>
+        {getLinks().map(link => (
           <button
             key={link.path}
             onClick={() => navigate(link.path)}
@@ -58,8 +82,8 @@ function Navbar() {
         ))}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '10px' }}>
-          <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px' }}>
-            👤 {username}
+          <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: '13px', background: 'rgba(255,255,255,0.15)', padding: '5px 10px', borderRadius: '6px' }}>
+            {roleLabel()} — {username}
           </span>
           <button
             onClick={handleLogout}
