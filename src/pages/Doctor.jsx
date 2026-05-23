@@ -20,48 +20,59 @@ function Doctor() {
   }
 
   return (
-    <div style={{ padding: '30px', fontFamily: 'Arial' }}>
-      <h1 style={{ color: '#2c7be5', textAlign: 'center' }}>👨‍⚕️ Doctor Dashboard</h1>
-      <p style={{ textAlign: 'center', color: '#666' }}>Total Patients: <strong>{patients.length}</strong></p>
+    <>
+     
 
-      {patients.length === 0 ? (
-        <p style={{ textAlign: 'center', color: '#999', marginTop: '50px' }}>⏳ Koi patient abhi nahi hai...</p>
-      ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-          <thead>
-            <tr style={{ background: '#2c7be5', color: 'white' }}>
-              <th style={{ padding: '12px' }}>Token</th>
-              <th style={{ padding: '12px' }}>Naam</th>
-              <th style={{ padding: '12px' }}>Umar</th>
-              <th style={{ padding: '12px' }}>Phone</th>
-              <th style={{ padding: '12px' }}>Takleef</th>
-              <th style={{ padding: '12px' }}>Time</th>
-              <th style={{ padding: '12px' }}>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {patients.map((patient) => (
-              <tr key={patient.id} style={{ background: patient.id % 2 === 0 ? '#f5f5f5' : 'white' }}>
-                <td style={{ padding: '12px', fontWeight: 'bold', color: '#2c7be5' }}>#{patient.token}</td>
-                <td style={{ padding: '12px' }}>{patient.name}</td>
-                <td style={{ padding: '12px' }}>{patient.age}</td>
-                <td style={{ padding: '12px' }}>{patient.phone}</td>
-                <td style={{ padding: '12px' }}>{patient.problem}</td>
-                <td style={{ padding: '12px' }}>{patient.time}</td>
-                <td style={{ padding: '12px' }}>
-                  <button
-                    onClick={() => deletePatient(patient.id)}
-                    style={{ padding: '5px 10px', background: '#e53e2c', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-                  >
-                    ✅ Done
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+      <div className="page">
+        <div className="card">
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <h2 style={{ color: '#2c7be5' }}>Patient Queue</h2>
+            <span style={{ background: '#e8f0fe', color: '#2c7be5', padding: '6px 16px', borderRadius: '20px', fontWeight: '600' }}>
+              Total: {patients.length}
+            </span>
+          </div>
+
+          {patients.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '60px', color: '#aaa' }}>
+              <div style={{ fontSize: '50px' }}>⏳</div>
+              <p style={{ marginTop: '15px', fontSize: '18px' }}>Koi patient abhi nahi hai</p>
+            </div>
+          ) : (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Naam</th>
+                  <th>Umar</th>
+                  <th>Phone</th>
+                  <th>Takleef</th>
+                  <th>Time</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {patients.map((patient) => (
+                  <tr key={patient.id}>
+                    <td><strong style={{ color: '#2c7be5' }}>#{patient.token}</strong></td>
+                    <td>{patient.name}</td>
+                    <td>{patient.age}</td>
+                    <td>{patient.phone}</td>
+                    <td>{patient.problem}</td>
+                    <td>{patient.time}</td>
+                    <td>
+                      <button className="btn-danger" onClick={() => deletePatient(patient.id)}>
+                        ✅ Done
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -1,16 +1,31 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Reception from './pages/Reception'
 import Doctor from './pages/Doctor'
 import Login from './pages/Login'
+import Prescription from './pages/Prescription'
+import Navbar from './components/Navbar'
 
-function App() {
+function Layout() {
+  const location = useLocation()
+  const hideNavbar = location.pathname === '/login'
+
   return (
-    <BrowserRouter>
+    <>
+      {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Reception />} />
         <Route path="/doctor" element={<Doctor />} />
+        <Route path="/prescription" element={<Prescription />} />
       </Routes>
+    </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Layout />
     </BrowserRouter>
   )
 }
