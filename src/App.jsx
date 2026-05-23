@@ -6,6 +6,7 @@ import Prescription from './pages/Prescription'
 import History from './pages/History'
 import LabReport from './pages/LabReport'
 import Admin from './pages/Admin'
+import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 
 function Layout() {
@@ -23,6 +24,7 @@ function Layout() {
         <Route path="/history" element={<History />} />
         <Route path="/lab" element={<LabReport />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/appointment" element={<Appointment />} />
       </Routes>
     </>
   )

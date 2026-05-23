@@ -11,6 +11,7 @@ const links = [
   { path: '/history', label: '📋 History' },
   { path: '/lab', label: '🔬 Lab' },
   { path: '/admin', label: '📊 Admin' },
+  { path: '/appointment', label: '📅 Appointment' },
 ]
   return (
     <div style={{
