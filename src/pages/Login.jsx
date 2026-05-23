@@ -2,20 +2,39 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Login() {
-  const [role, setRole] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    if (role === 'reception' && password === '1234') {
-      navigate('/')
-    } else if (role === 'doctor' && password === '5678') {
-      navigate('/doctor')
+    setLoading(true)
+    setError('')
+
+    const response = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    })
+
+    const data = await response.json()
+
+    if (data.success) {
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('role', data.role)
+      localStorage.setItem('username', data.username)
+      localStorage.setItem('hospital', data.hospital)
+
+      if (data.role === 'admin') navigate('/admin')
+      else if (data.role === 'doctor') navigate('/doctor')
+      else navigate('/')
     } else {
-      setError('❌ Wrong password!')
+      setError(data.message)
     }
+
+    setLoading(false)
   }
 
   return (
@@ -25,42 +44,37 @@ function Login() {
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <div style={{ fontSize: '50px' }}>🏥</div>
           <h1 style={{ color: '#2c7be5', fontSize: '24px', marginTop: '10px' }}>Hospital Management</h1>
-          <p style={{ color: '#888', marginTop: '5px' }}>Apna role select karke login karein</p>
+          <p style={{ color: '#888', marginTop: '5px' }}>Login karein</p>
         </div>
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <select
+          <input
             className="input"
-            value={role}
-            onChange={e => setRole(e.target.value)}
+            placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
             required
-          >
-            <option value="">Role Select Karo</option>
-            <option value="reception">👩‍💼 Reception</option>
-            <option value="doctor">👨‍⚕️ Doctor</option>
-          </select>
-
+          />
           <input
             className="input"
             type="password"
-            placeholder="Password daalo"
+            placeholder="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required
           />
 
-          {error && (
-            <p style={{ color: '#e53e2c', textAlign: 'center', fontWeight: '500' }}>{error}</p>
-          )}
+          {error && <p style={{ color: '#e53e2c', textAlign: 'center' }}>{error}</p>}
 
           <button className="btn-primary" type="submit">
-            Login Karo 🔐
+            {loading ? '⏳ Loading...' : 'Login Karo 🔐'}
           </button>
         </form>
 
         <div style={{ marginTop: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '8px', fontSize: '13px', color: '#666' }}>
-          <p>👩‍💼 Reception: <strong>1234</strong></p>
-          <p style={{ marginTop: '5px' }}>👨‍⚕️ Doctor: <strong>5678</strong></p>
+          <p>👩‍💼 Reception: <strong>reception / reception123</strong></p>
+          <p style={{ marginTop: '5px' }}>👨‍⚕️ Doctor: <strong>doctor / doctor123</strong></p>
+          <p style={{ marginTop: '5px' }}>📊 Admin: <strong>admin / admin123</strong></p>
         </div>
 
       </div>
