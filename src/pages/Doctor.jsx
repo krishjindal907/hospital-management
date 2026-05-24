@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 function Doctor() {
   const [patients, setPatients] = useState([])
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     const fetchPatients = () => {
@@ -19,10 +20,14 @@ function Doctor() {
     setPatients(patients.filter(p => p.id !== id))
   }
 
+  const filteredPatients = patients.filter(p =>
+    p.name.toLowerCase().includes(search.toLowerCase()) ||
+    p.phone.includes(search) ||
+    p.problem.toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <>
-     
-
       <div className="page">
         <div className="card">
 
@@ -33,10 +38,21 @@ function Doctor() {
             </span>
           </div>
 
-          {patients.length === 0 ? (
+          {/* Search Box */}
+          <input
+            className="input"
+            placeholder="🔍 Patient naam, phone ya takleef search karo..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            style={{ marginBottom: '20px' }}
+          />
+
+          {filteredPatients.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '60px', color: '#aaa' }}>
-              <div style={{ fontSize: '50px' }}>⏳</div>
-              <p style={{ marginTop: '15px', fontSize: '18px' }}>Koi patient abhi nahi hai</p>
+              <div style={{ fontSize: '50px' }}>{search ? '🔍' : '⏳'}</div>
+              <p style={{ marginTop: '15px', fontSize: '18px' }}>
+                {search ? 'Koi patient nahi mila!' : 'Koi patient abhi nahi hai'}
+              </p>
             </div>
           ) : (
             <table className="table">
@@ -52,7 +68,7 @@ function Doctor() {
                 </tr>
               </thead>
               <tbody>
-                {patients.map((patient) => (
+                {filteredPatients.map((patient) => (
                   <tr key={patient.id}>
                     <td><strong style={{ color: '#2c7be5' }}>#{patient.token}</strong></td>
                     <td>{patient.name}</td>
