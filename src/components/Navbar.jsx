@@ -10,8 +10,8 @@ function Navbar() {
   // Har role ke alag links
   const adminLinks = [
     { path: '/admin', label: '📊 Dashboard' },
+    { path: '/analytics', label: '📈 Analytics' },
     { path: '/admin/staff', label: '👥 Staff' },
-    { path: '/admin/hospitals', label: '🏥 Hospitals' },
   ]
 
   const doctorLinks = [
