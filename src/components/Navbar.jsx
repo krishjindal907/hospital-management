@@ -7,7 +7,6 @@ function Navbar() {
   const username = localStorage.getItem('username')
   const hospital = localStorage.getItem('hospital')
 
-  // Har role ke alag links
   const adminLinks = [
     { path: '/admin', label: '📊 Dashboard' },
     { path: '/analytics', label: '📈 Analytics' },
@@ -25,6 +24,7 @@ function Navbar() {
     { path: '/', label: '👩‍💼 Registration' },
     { path: '/appointment', label: '📅 Appointment' },
     { path: '/history', label: '📋 History' },
+    { path: '/billing', label: '🧾 Billing' },
   ]
 
   const getLinks = () => {

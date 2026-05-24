@@ -11,6 +11,7 @@ import Unauthorized from './pages/Unauthorized'
 import PatientLogin from './pages/PatientLogin'
 import PatientDashboard from './pages/PatientDashboard'
 import Analytics from './pages/Analytics'
+import Billing from './pages/Billing'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -72,6 +73,11 @@ function Layout() {
         <Route path="/analytics" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <Analytics />
+          </ProtectedRoute>
+        } />
+        <Route path="/billing" element={
+          <ProtectedRoute allowedRoles={['reception', 'admin']}>
+            <Billing />
           </ProtectedRoute>
         } />
       </Routes>
